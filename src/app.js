@@ -6,16 +6,10 @@ import config from 'config';
 import expressValidator from 'express-validator';
 import i18n from 'i18n';
 import log4js from 'log4js';
-import util from 'util';
 
-import { User } from './entities/user';
-import { User as DomainUser } from './domains/user';
-import { Container } from 'inversify';
+import routes from './routes/index';
 
-const container = new Container();
-container.bind(User).toSelf();
-
-export default connection => {
+export default () => {
     const app = express();
     log4js.configure(config.get('log'));
     const logger = log4js.getLogger();
@@ -35,42 +29,7 @@ export default connection => {
     }));
     app.use(i18n.init);
 
-    app.get('/', (request: express$Request, response: express$Response) => {
-        response.send(request.__('Hello'));
-    });
-    app.post('/post', (request, response) => {
-        request.checkBody({
-            'name': {
-                notEmpty: true,
-                isLength: {
-                    options: [{
-                        min: 3
-                    }]
-                }
-            }
-        });
-        request.getValidationResult()
-            .then((result) => {
-                if (!result.isEmpty()) {
-                    response.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
-                    return;
-                }
-                response.send(request.body.name);
-            });
-    });
-
-    app.post('/users', async (request, response) => {
-        let user = container.get(User);
-        user.email = 'example@example.com';
-        user.password = 'password';
-        let userRepository = connection.getRepository(User);
-        user = await userRepository.persist(user);
-        let domainUser = new DomainUser(user);
-        response.send(domainUser);
-    });
-    app.get('/error', () => {
-        throw new Error('error');
-    });
+    app.use('/', routes);
 
 // After routing
     app.use((error, request, response) => {

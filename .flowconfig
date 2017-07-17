@@ -6,5 +6,7 @@
 [libs]
 
 [options]
+# for babel-plugin-root-import
+module.name_mapper='^~/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
 
 [lints]
