@@ -1,20 +1,16 @@
+// @flow
+import BaseDomain from "./base-domain";
 
-export class User
+export default class User extends BaseDomain
 {
-    id: int = undefined;
+    id: number = 0;
 
-    email: string = undefined;
+    email: string = "";
 
-    password: string = undefined;
+    password: string = "";
 
-    constructor(props)
+    constructor()
     {
-        for (let key in props) {
-            if (!(key in this)) {
-                continue;
-            }
-            let value = props[key];
-            this[key] = value;
-        }
+        super();
     }
 }
