@@ -6,7 +6,7 @@ module.exports = {
         "appenders": {
             "all": {
                 "type": "file",
-                "filename": "./storage/log/application.log"
+                "filename": "./storages/logs/application.log"
             },
             "out": {
                 "type": "stdout"

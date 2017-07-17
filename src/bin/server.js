@@ -7,4 +7,4 @@ import { createConnection } from 'typeorm';
 
 createConnection().then(async connection => {
     app(connection).listen(3000);
-}).catch(e => console.error(e));
+}).catch(null);

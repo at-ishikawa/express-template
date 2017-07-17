@@ -5,7 +5,7 @@
     "src"
   ],
   "roots": [
-    "<rootDir>/test",
+    "<rootDir>/tests",
     "<rootDir>/src"
   ]
 }

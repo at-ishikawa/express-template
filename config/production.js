@@ -4,7 +4,7 @@ module.exports = {
             "all": {
                 "type": "dateFile",
                 "pattern": ".yyyy-MM-dd",
-                "filename": "./storage/log/application.log"
+                "filename": "./storages/logs/application.log"
             }
         },
         "categories": {

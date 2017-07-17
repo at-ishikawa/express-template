@@ -1,4 +1,3 @@
-// @flow
 import "babel-polyfill";
 
 import express from 'express';
@@ -66,17 +65,15 @@ export default connection => {
         user.password = 'password';
         let userRepository = connection.getRepository(User);
         user = await userRepository.persist(user);
-        console.log(user);
         let domainUser = new DomainUser(user);
-        console.log(domainUser);
         response.send(domainUser);
     });
-    app.get('/error', (request, _) => {
+    app.get('/error', () => {
         throw new Error('error');
     });
 
 // After routing
-    app.use((error, request, response, _) => {
+    app.use((error, request, response) => {
         logger.error(error);
         response.status(500);
         response.send("ERROR");
