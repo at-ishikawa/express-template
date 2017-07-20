@@ -1,11 +1,6 @@
 // @flow
 import express from 'express';
 
-import { Container } from 'inversify';
-import { User } from '~/entities/user';
-const container = new Container();
-container.bind(User).toSelf();
-
 import BaseAction from '~/actions/BaseAction';
 import IndexAction from '~/actions/index/IndexAction';
 import PostAction from '~/actions/index/PostAction';
