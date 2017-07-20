@@ -5,6 +5,6 @@ import "babel-polyfill";
 import app from "../app";
 import { createConnection } from 'typeorm';
 
-createConnection().then(async connection => {
-    app(connection).listen(3000);
+createConnection().then(async () => {
+    app.listen(3000);
 }).catch(null);
