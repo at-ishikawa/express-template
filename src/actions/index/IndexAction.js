@@ -1,10 +1,18 @@
 // @flow
 import BaseAction from "~/actions/BaseAction";
 import { __ } from 'i18n';
+import ResponsePayload from "~/responders/ResponsePayload";
+import type IndexResponder from "~/responders/index/IndexResponder";
 
 export default class IndexAction extends BaseAction
 {
-    onDispatch(request: express$Request, response: express$Response) {
-        response.send(__('Hello'));
+    constructor(responder: IndexResponder)
+    {
+        super(responder);
+    }
+
+    onDispatch()
+    {
+        return new ResponsePayload(__('Hello'));
     }
 }

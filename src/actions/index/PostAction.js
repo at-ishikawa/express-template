@@ -1,9 +1,11 @@
 import BaseAction from '~/actions/BaseAction';
 import util from 'util';
+import ResponsePayload from "~/responders/ResponsePayload";
 
 export default class PostAction extends BaseAction
 {
-    onDispatch(request: express$Request, response: express$Response) {
+    async onDispatch(request: express$Request)
+    {
         request.checkBody({
             'name': {
                 notEmpty: true,
@@ -14,13 +16,10 @@ export default class PostAction extends BaseAction
                 }
             }
         });
-        request.getValidationResult()
-            .then((result) => {
-                if (!result.isEmpty()) {
-                    response.status(400).send('There have been validation errors: ' + util.inspect(result.array()));
-                    return;
-                }
-                response.send(request.body.name);
-            });
+        const result = await request.getValidationResult();
+        if (!result.isEmpty()) {
+            return new ResponsePayload('There have been validation errors: ' + util.inspect(result.array()), 400);
+        }
+        return new ResponsePayload(request.body.name);
     }
 }

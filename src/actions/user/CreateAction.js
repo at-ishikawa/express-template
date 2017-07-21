@@ -5,10 +5,11 @@ import ContainerHolder from '~/containers/ContainerHolder';
 import {getConnection} from "typeorm";
 import { User } from '~/entities/user';
 import DomainUser from '~/domains/user';
+import ResponsePayload from "~/responders/ResponsePayload";
 
 export default class CreateAction extends BaseAction
 {
-    async onDispatch(request: express$Request, response: express$Response)
+    async onDispatch()
     {
         let user = ContainerHolder.getContainer().get(User);
         user.email = 'example@example.com';
@@ -19,6 +20,6 @@ export default class CreateAction extends BaseAction
         let domainUser = new DomainUser();
         domainUser.setFields(user);
 
-        response.send(domainUser);
+        return new ResponsePayload(domainUser);
     }
 }

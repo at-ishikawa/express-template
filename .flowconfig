@@ -8,5 +8,7 @@
 [options]
 # for babel-plugin-root-import
 module.name_mapper='^~/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
+unsafe.enable_getters_and_setters=true
+esproposal.decorators=ignore
 
 [lints]

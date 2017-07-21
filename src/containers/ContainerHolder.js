@@ -1,17 +1,15 @@
-import IllegalInvocationError from '~/exceptions/IllegalInvocationError';
-
+// @flow
 import { Container } from 'inversify';
 import { User } from '~/entities/user';
 
 export default class ContainerHolder
 {
-    static instance = null;
+    static instance;
 
     container = new Container();
 
     constructor()
     {
-        throw new IllegalInvocationError('ContainerHolder cannot be called constructor');
     }
 
     bindForDefault()
@@ -21,7 +19,7 @@ export default class ContainerHolder
 
     static getContainer()
     {
-        if (ContainerHolder.instance === null) {
+        if (!ContainerHolder.instance) {
             ContainerHolder.instance = new ContainerHolder();
             ContainerHolder.instance.bindForDefault();
         }
