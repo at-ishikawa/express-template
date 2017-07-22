@@ -19,6 +19,7 @@
     "inversify": "^4.2.0",
     "log4js": "^2.1.0",
     "mysql": "^2.13.0",
+    "source-map-support": "^0.4.15",
     "typeorm": "0.1.0-alpha.32"
   },
   "devDependencies": {

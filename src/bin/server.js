@@ -4,6 +4,9 @@ import "babel-polyfill";
 
 import app from "../app";
 import { createConnection } from 'typeorm';
+import sourceMapSupport from "source-map-support";
+
+sourceMapSupport.install();
 
 createConnection().then(async () => {
     app.listen(3000);
