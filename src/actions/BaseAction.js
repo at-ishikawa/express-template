@@ -1,5 +1,6 @@
 // @flow
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
+import ContainerHolder from "~/containers/ContainerHolder";
 import IllegalInvocationError from '~/exceptions/IllegalInvocationError';
 import Autobind from 'autobind-decorator';
 import log4js from "log4js";
@@ -8,10 +9,12 @@ import type BaseResponder from '~/responders/BaseResponder';
 export default class BaseAction
 {
     responder: BaseResponder;
+    container: any;
 
     constructor(responder: BaseResponder)
     {
         this.responder = responder;
+        this.container = ContainerHolder.getContainer();
     }
 
     @Autobind

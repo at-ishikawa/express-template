@@ -2,8 +2,9 @@
 import { Container } from 'inversify';
 import User from '~/entities/User';
 import DomainUser from '~/domains/DomainUser';
-import DomainUserFactory from "../domains/DomainUserFactory";
-import EntityUserFactory from "../entities/EntityUserFactory";
+import DomainUserFactory from "~/domains/DomainUserFactory";
+import EntityUserFactory from "~/entities/EntityUserFactory";
+import UserRepository from "~/repositories/db/UserRepository";
 
 export default class ContainerHolder
 {
@@ -21,6 +22,10 @@ export default class ContainerHolder
         DomainUserFactory
     ];
 
+    static REPOSITORY_CLASSES = [
+        UserRepository
+    ];
+
     container = new Container();
 
     constructor()
@@ -30,6 +35,7 @@ export default class ContainerHolder
     bindDefault() {
         this.bindClasses(ContainerHolder.DOMAIN_CLASSES);
         this.bindClasses(ContainerHolder.ENTITY_CLASSES);
+        this.bindClasses(ContainerHolder.REPOSITORY_CLASSES);
     }
 
     bindClasses(classes: Array<Function>)
