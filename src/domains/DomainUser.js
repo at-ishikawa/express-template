@@ -1,7 +1,7 @@
 // @flow
-import BaseDomain from "./base-domain";
+import BaseDomain from "./BaseDomain";
 
-export default class User extends BaseDomain
+export default class DomainUser extends BaseDomain
 {
     id: number = 0;
 

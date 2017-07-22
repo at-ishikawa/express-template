@@ -3,7 +3,7 @@ import { injectable } from 'inversify';
 
 @Entity()
 @injectable()
-export class User {
+export default class User {
     @PrimaryGeneratedColumn("int")
     id = undefined;
 

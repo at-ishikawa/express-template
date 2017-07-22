@@ -3,23 +3,25 @@ import BaseAction from "~/actions/BaseAction";
 
 import ContainerHolder from '~/containers/ContainerHolder';
 import {getConnection} from "typeorm";
-import { User } from '~/entities/user';
-import DomainUser from '~/domains/user';
+import User from '~/entities/User';
 import ResponsePayload from "~/responders/ResponsePayload";
+import DomainUserFactory from "../../domains/DomainUserFactory";
+import EntityUserFactory from "../../entities/EntityUserFactory";
 
 export default class CreateAction extends BaseAction
 {
     async onDispatch()
     {
-        let user = ContainerHolder.getContainer().get(User);
-        user.email = 'example@example.com';
-        user.password = 'password';
+        const container = ContainerHolder.getContainer();
+        let inputUser = container.get(DomainUserFactory).create({
+            email: 'example@example.com',
+            password: 'password'
+        });
 
+        let entityUser = container.get(EntityUserFactory).create(inputUser);
         let userRepository = getConnection().getRepository(User);
-        user = await userRepository.persist(user);
-        let domainUser = new DomainUser();
-        domainUser.setFields(user);
-
+        await userRepository.persist(entityUser);
+        let domainUser = container.get(DomainUserFactory).create(entityUser);
         return new ResponsePayload(domainUser);
     }
 }

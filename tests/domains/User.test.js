@@ -1,8 +1,9 @@
-import User from "domains/user";
+import "reflect-metadata";
+import DomainUser from "domains/DomainUser";
 
 describe('User Domain Test', () => {
     test('It should set fields', () => {
-        const actual = new User();
+        const actual = new DomainUser();
         actual.setFields({
             id: 1,
             email: 'test@example.com',
