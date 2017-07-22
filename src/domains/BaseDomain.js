@@ -1,3 +1,4 @@
+// @flow
 import {injectable} from "inversify";
 
 @injectable()
@@ -7,14 +8,17 @@ export default class BaseDomain
     {
     }
 
-    setFields(fields)
+    setFields(fields: Object): $Subtype<BaseDomain>
     {
-        for (let name in fields) {
+        let objectFields = {};
+        for (let name: string in fields) {
             if (!(name in this)) {
                 continue;
             }
             let value = fields[name];
-            this[name] = value;
+            objectFields[name] = value;
         }
+        Object.assign(this, objectFields);
+        return this;
     }
 }

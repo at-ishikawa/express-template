@@ -1,5 +1,6 @@
 [
     {
+        "environment": "development",
         "name": "default",
         "driver": {
             "type": "mysql",
@@ -24,5 +25,21 @@
             "migrationsDir": "build/migration",
             "subscribersDir": "build/subscriber"
         }
+    },
+    {
+        "environment": "test",
+        "name": "default",
+        "driver": {
+            "type": "mysql",
+            "host": "localhost",
+            "port": 3306,
+            "username": "user",
+            "password": "password",
+            "database": "test"
+        },
+        "autoSchemaSync": true,
+        "entities": [
+            "src/entities/*.js"
+        ]
     }
 ]

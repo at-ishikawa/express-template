@@ -8,7 +8,7 @@ import UserRepository from "~/repositories/db/UserRepository";
 
 export default class ContainerHolder
 {
-    static instance;
+    static instance: ContainerHolder;
 
     static ENTITY_CLASSES = [
         User,
@@ -32,16 +32,24 @@ export default class ContainerHolder
     {
     }
 
-    bindDefault() {
-        this.bindClasses(ContainerHolder.DOMAIN_CLASSES);
-        this.bindClasses(ContainerHolder.ENTITY_CLASSES);
-        this.bindClasses(ContainerHolder.REPOSITORY_CLASSES);
+    static bindDefault() {
+        this.getContainer();
+        this.instance.bindClasses(ContainerHolder.DOMAIN_CLASSES);
+        this.instance.bindClasses(ContainerHolder.ENTITY_CLASSES);
+        this.instance.bindClasses(ContainerHolder.REPOSITORY_CLASSES);
+    }
+
+    static clear()
+    {
+        this.getContainer();
+        this.instance.container = new Container();
     }
 
     bindClasses(classes: Array<Function>)
     {
         classes.forEach(c => {
-            this.container.bind(c).toSelf();
+            this.container.bind(c)
+                .toSelf();
         });
     }
 
@@ -49,7 +57,6 @@ export default class ContainerHolder
     {
         if (!ContainerHolder.instance) {
             ContainerHolder.instance = new ContainerHolder();
-            ContainerHolder.instance.bindDefault();
         }
         return ContainerHolder.instance.container;
     }

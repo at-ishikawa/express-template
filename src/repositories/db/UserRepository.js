@@ -13,7 +13,7 @@ export default class UserRepository extends BaseRepository
         this.entityRepository = this.connection.getRepository(User);
     }
 
-    async create(user: DomainUser)
+    async create(user: DomainUser): Promise<DomainUser>
     {
         let entity = this.container.get(EntityUserFactory)
             .create(user);

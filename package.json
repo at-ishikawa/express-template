@@ -1,7 +1,7 @@
 {
   "scripts": {
     "setup": "npm install && npm run setup:flow-typed && npm run build",
-    "setup:flow-typed": "flow-typed install express@4.x.x",
+    "setup:flow-typed": "flow-typed install express@4.x.x jest@20.x.x",
     "start": "node ./build/bin/server.js",
     "build": "babel src -d build -D -s --module-roots src",
     "watch": "npm run build -- -w",
