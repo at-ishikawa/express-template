@@ -1,9 +1,16 @@
+// @flow
 import request from 'supertest';
-import app from 'app';
+import app from '~/app';
 
-describe("Hello World Server", () => {
-  test("It should returns status code 200", () => {
-    return request(app).get("/")
-      .expect(200);
-  });
+describe("Routing tests", () => {
+
+    const routes = [
+        "/",
+    ];
+
+    routes.forEach(route => {
+        test(`GET ${route} returns 200`, () => {
+            return request(app).get(route).expect(200);
+        })
+    });
 });
