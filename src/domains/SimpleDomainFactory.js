@@ -1,12 +1,13 @@
 // @flow
 import {injectable} from "inversify";
+import type BaseDomain from "~/domains/BaseDomain";
 
 @injectable()
 export default class SimpleDomainFactory
 {
-    constructor: Function;
+    constructor: Class<$Subtype<BaseDomain>>;
 
-    create(object: any)
+    create(object: Object)
     {
         let target = new this.constructor();
         target.setFields(object);

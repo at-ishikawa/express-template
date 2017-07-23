@@ -3,28 +3,36 @@ import "reflect-metadata";
 import ContainerHolder from "~/containers/ContainerHolder";
 import UserRepository from "~/repositories/db/UserRepository";
 import {createConnections, getConnection} from "typeorm";
-import DomainUser from "~/domains/DomainUser";
+import DomainUser from "~/domains/user/DomainUser";
 
 describe('UserRepository Test', () => {
     let repository;
     let queryRunner;
+    let connections;
 
     beforeAll(async () => {
         ContainerHolder.bindDefault();
-        await createConnections();
+        connections = await createConnections();
     });
 
-    beforeEach(() => {
+    afterAll(async () => {
+        connections.forEach(async connection => {
+            await connection.close();
+        });
+    });
+
+    beforeEach(async () => {
         queryRunner = getConnection().createQueryRunner();
-        queryRunner.startTransaction();
+        await queryRunner.startTransaction();
         repository = new UserRepository();
     });
 
-    afterEach(() => {
-        queryRunner.rollbackTransaction();
+    afterEach(async () => {
+        await queryRunner.rollbackTransaction();
     });
 
     test('create', async () => {
+        expect.assertions(3);
         const input = {
             email: 'test@example.com',
             password: 'password',

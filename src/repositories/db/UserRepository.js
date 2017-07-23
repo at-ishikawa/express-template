@@ -1,8 +1,8 @@
 // @flow
 import User from "~/entities/User";
-import DomainUser from '~/domains/DomainUser';
-import DomainUserFactory from "~/domains/DomainUserFactory";
-import EntityUserFactory from "~/entities/EntityUserFactory";
+import DomainUser from '~/domains/user/DomainUser';
+import DomainUserFactory from "~/domains/user/DomainUserFactory";
+import EntityUserFactory from "~/entities/factories/EntityUserFactory";
 import BaseRepository from "./BaseRepository";
 
 export default class UserRepository extends BaseRepository

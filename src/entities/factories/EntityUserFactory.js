@@ -1,7 +1,8 @@
+// @flow
 import EntitySimpleFactory from "./SimpleEntityFactory";
-import User from "./User";
+import User from "~/entities/User";
 
 export default class EntityUserFactory extends EntitySimpleFactory
 {
-    constructor: Function = User;
+    constructor: Class<User> = User;
 }

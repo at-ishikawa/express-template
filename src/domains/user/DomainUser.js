@@ -1,5 +1,5 @@
 // @flow
-import BaseDomain from "./BaseDomain";
+import BaseDomain from "../BaseDomain";
 
 export default class DomainUser extends BaseDomain
 {

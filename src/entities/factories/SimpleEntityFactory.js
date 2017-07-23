@@ -1,10 +1,11 @@
 // @flow
 import {injectable} from "inversify";
+import type BaseEntity from "~/entities/BaseEntity";
 
 @injectable()
 export default class SimpleEntityFactory
 {
-    constructor: Function;
+    constructor: Class<$Subtype<BaseEntity>>;
 
     create(object: Object)
     {

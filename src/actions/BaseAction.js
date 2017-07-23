@@ -8,10 +8,10 @@ import type BaseResponder from '~/responders/BaseResponder';
 
 export default class BaseAction
 {
-    responder: BaseResponder;
+    responder: $Subtype<BaseResponder>;
     container: any;
 
-    constructor(responder: BaseResponder)
+    constructor(responder: $Subtype<BaseResponder>)
     {
         this.responder = responder;
         this.container = ContainerHolder.getContainer();

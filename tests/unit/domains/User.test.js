@@ -1,5 +1,6 @@
+// @flow
 import "reflect-metadata";
-import DomainUser from "domains/DomainUser";
+import DomainUser from "~/domains/user/DomainUser";
 
 describe('User Domain Test', () => {
     test('It should set fields', () => {
@@ -13,6 +14,6 @@ describe('User Domain Test', () => {
         expect(actual.id).toBe(1);
         expect(actual.email).toBe('test@example.com');
         expect(actual.password).toBe('password');
-        expect(actual.created_at).toBeUndefined();
+        expect(actual).not.toHaveProperty('created_at');
     });
 });

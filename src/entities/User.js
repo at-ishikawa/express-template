@@ -1,9 +1,9 @@
+// @flow
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { injectable } from 'inversify';
+import BaseEntity from "./BaseEntity";
 
 @Entity()
-@injectable()
-export default class User {
+export default class User extends BaseEntity {
     @PrimaryGeneratedColumn("int")
     id = undefined;
 
