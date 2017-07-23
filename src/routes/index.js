@@ -2,10 +2,10 @@
 import Router from './Router';
 import IndexAction from '~/actions/index/IndexAction';
 import PostAction from '~/actions/index/PostAction';
-import UserCreateAction from '~/actions/user/CreateAction';
+import UserCreateAction from '~/actions/users/CreateAction';
 import IndexResponder from '~/responders/index/IndexResponder';
 import PostResponder from '~/responders/index/PostResponder';
-import UserCreateResponder from '~/responders/user/CreateResponder';
+import UserCreateResponder from '~/responders/users/CreateResponder';
 
 const router = new Router();
 

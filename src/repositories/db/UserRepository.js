@@ -1,7 +1,7 @@
 // @flow
 import User from "~/entities/User";
-import DomainUser from '~/domains/user/DomainUser';
-import DomainUserFactory from "~/domains/user/DomainUserFactory";
+import DomainUser from '~/domains/users/DomainUser';
+import DomainUserFactory from "~/domains/users/DomainUserFactory";
 import EntityUserFactory from "~/entities/factories/EntityUserFactory";
 import BaseRepository from "./BaseRepository";
 

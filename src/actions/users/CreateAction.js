@@ -3,7 +3,7 @@ import BaseAction from "~/actions/BaseAction";
 
 import ResponsePayload from "~/responders/ResponsePayload";
 import UserRepository from "~/repositories/db/UserRepository";
-import DomainUserFactory from "~/domains/user/DomainUserFactory";
+import DomainUserFactory from "~/domains/users/DomainUserFactory";
 
 export default class CreateAction extends BaseAction
 {

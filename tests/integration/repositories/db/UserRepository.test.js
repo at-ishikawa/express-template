@@ -3,7 +3,7 @@ import "reflect-metadata";
 import ContainerHolder from "~/containers/ContainerHolder";
 import UserRepository from "~/repositories/db/UserRepository";
 import {createConnections, getConnection} from "typeorm";
-import DomainUser from "~/domains/user/DomainUser";
+import DomainUser from "~/domains/users/DomainUser";
 
 describe('UserRepository Test', () => {
     let repository;

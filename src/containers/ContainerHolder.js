@@ -2,8 +2,8 @@
 import { Container } from 'inversify';
 import User from '~/entities/User';
 import EntityUserFactory from "~/entities/factories/EntityUserFactory";
-import DomainUser from '~/domains/user/DomainUser';
-import DomainUserFactory from "~/domains/user/DomainUserFactory";
+import DomainUser from '~/domains/users/DomainUser';
+import DomainUserFactory from "~/domains/users/DomainUserFactory";
 import UserRepository from "~/repositories/db/UserRepository";
 
 export default class ContainerHolder

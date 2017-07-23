@@ -1,6 +1,6 @@
 // @flow
 import "reflect-metadata";
-import DomainUser from "~/domains/user/DomainUser";
+import DomainUser from "~/domains/users/DomainUser";
 
 describe('User Domain Test', () => {
     test('It should set fields', () => {
