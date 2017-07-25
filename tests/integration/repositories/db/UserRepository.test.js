@@ -24,7 +24,7 @@ describe('UserRepository Test', () => {
     beforeEach(async () => {
         queryRunner = getConnection().createQueryRunner();
         await queryRunner.startTransaction();
-        repository = new UserRepository();
+        repository = ContainerHolder.getContainer().get(UserRepository);
     });
 
     afterEach(async () => {

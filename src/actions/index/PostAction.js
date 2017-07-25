@@ -1,9 +1,14 @@
-import BaseAction from '~/actions/BaseAction';
 import util from 'util';
+import {inject} from "inversify";
+import BaseAction from '~/actions/BaseAction';
 import ResponsePayload from "~/responders/ResponsePayload";
+import PostResponder from "~/responders/index/PostResponder";
 
 export default class PostAction extends BaseAction
 {
+    @inject(PostResponder)
+    responder: PostResponder = new PostResponder();
+
     async onDispatch(request: express$Request)
     {
         request.checkBody({

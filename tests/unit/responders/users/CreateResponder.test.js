@@ -1,4 +1,5 @@
 // @flow
+import "reflect-metadata";
 import CreateResponder from "~/responders/users/CreateResponder";
 import ResponsePayload from "~/responders/ResponsePayload";
 

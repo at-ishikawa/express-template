@@ -10,6 +10,10 @@ import sourceMapSupport from "source-map-support";
 sourceMapSupport.install();
 const logger = log4js.getLogger();
 
-createConnection().then(async () => {
-    app.listen(3000, () => logger.info('Started an express'));
+createConnection().then(async (connection) => {
+    try {
+        app().listen(3000, () => logger.info('Started an express'));
+    } finally {
+        await connection.close();
+    }
 }).catch(e => logger.error(e));

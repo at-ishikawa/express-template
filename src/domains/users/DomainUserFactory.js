@@ -4,5 +4,10 @@ import SimpleDomainFactory from "../SimpleDomainFactory";
 
 export default class DomainUserFactory extends SimpleDomainFactory
 {
-    constructor: Class<DomainUser> = DomainUser;
+    domainConstructor: Class<DomainUser> = DomainUser;
+
+    constructor()
+    {
+        super();
+    }
 }

@@ -6,35 +6,58 @@ import DomainUser from "~/domains/users/DomainUser";
 import DomainUserFactory from "~/domains/users/DomainUserFactory";
 import UserRepository from "~/repositories/db/UserRepository";
 import ResponsePayload from "~/responders/ResponsePayload";
-import BaseResponder from "~/responders/BaseResponder";
+import CreateResponder from "~/responders/users/CreateResponder";
+import {createConnections} from "typeorm";
 
 describe('CreateAction test example', () => {
     let sut;
 
+    let mockDomainUserFactory;
+
+    let mockUserRepository;
+
+    let connections;
+
+    beforeAll(async () => {
+        connections = await createConnections();
+    });
+
+    afterAll(async () => {
+        await connections.forEach(async connection => {
+            await connection.close();
+        });
+    });
+
     beforeEach(() => {
         ContainerHolder.clear();
-        const c = new class extends BaseResponder {};
-        sut = new CreateAction(c);
+        mockDomainUserFactory = {};
+        mockUserRepository = {};
+
+        const container = ContainerHolder.getContainer();
+        container.bind(CreateResponder)
+            .toConstantValue({});
+        container.bind(DomainUserFactory)
+            .toConstantValue(mockDomainUserFactory);
+        container.bind(UserRepository)
+            .toConstantValue(mockUserRepository);
+        container.bind(CreateAction)
+            .toSelf();
+
+        sut = container.get(CreateAction);
     });
 
     test('onDispatch test', async () => {
         expect.assertions(4);
 
-        const container = ContainerHolder.getContainer()
-
-        container.bind(DomainUserFactory).toConstantValue({
-            create: jest.fn()
-                .mockImplementation((data) => new DomainUser()
-                    .setFields(data)
-                )
-        });
-        container.bind(UserRepository).toConstantValue({
-            create: jest.fn()
-                .mockImplementation((domain) => {
-                    domain.id = 1;
-                    return domain;
-                })
-        });
+        mockDomainUserFactory.create = jest.fn()
+            .mockImplementation((data) => new DomainUser()
+                .setFields(data)
+            );
+        mockUserRepository.create = jest.fn()
+            .mockImplementation((domain) => {
+                domain.id = 1;
+                return domain;
+            });
 
         const actual = await sut.onDispatch();
         expect(actual).toBeInstanceOf(ResponsePayload);

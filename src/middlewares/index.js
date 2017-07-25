@@ -14,7 +14,7 @@ const apply = (app: express$Application) => {
     app.use(expressValidator());
     app.use(logger);
     app.use(i18nMiddleware);
-    app.use('/', router.expressRouter);
+    app.use('/', router());
 
     // After routing
     app.use(errorHandler);

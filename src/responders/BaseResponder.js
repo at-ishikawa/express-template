@@ -2,7 +2,9 @@
 /*eslint no-unused-vars: ["error", { "args": "none" }]*/
 import IllegalInvocationError from '~/exceptions/IllegalInvocationError';
 import type ResponsePayload from "./ResponsePayload";
+import {injectable} from "inversify";
 
+@injectable()
 export default class BaseResponder
 {
     _response: express$Response;

@@ -5,11 +5,15 @@ import type BaseDomain from "~/domains/BaseDomain";
 @injectable()
 export default class SimpleDomainFactory
 {
-    constructor: Class<$Subtype<BaseDomain>>;
+    domainConstructor: Class<$Subtype<BaseDomain>>;
+
+    constructor()
+    {
+    }
 
     create(object: Object)
     {
-        let target = new this.constructor();
+        let target = new this.domainConstructor();
         target.setFields(object);
         return target;
     }

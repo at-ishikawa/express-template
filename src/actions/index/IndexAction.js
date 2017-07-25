@@ -2,14 +2,13 @@
 import BaseAction from "~/actions/BaseAction";
 import { __ } from 'i18n';
 import ResponsePayload from "~/responders/ResponsePayload";
-import type IndexResponder from "~/responders/index/IndexResponder";
+import IndexResponder from "~/responders/index/IndexResponder";
+import {inject} from "inversify";
 
 export default class IndexAction extends BaseAction
 {
-    constructor(responder: IndexResponder)
-    {
-        super(responder);
-    }
+    @inject(IndexResponder)
+    responder: IndexResponder = new IndexResponder();
 
     onDispatch()
     {
