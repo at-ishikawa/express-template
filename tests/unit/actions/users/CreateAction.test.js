@@ -7,7 +7,7 @@ import DomainUserFactory from "~/domains/users/DomainUserFactory";
 import UserRepository from "~/repositories/db/UserRepository";
 import ResponsePayload from "~/responders/ResponsePayload";
 import CreateResponder from "~/responders/users/CreateResponder";
-import {createConnections} from "typeorm";
+import "@/unit/actions/BaseActionTestCase";
 
 describe('CreateAction test example', () => {
     let sut;
@@ -15,18 +15,6 @@ describe('CreateAction test example', () => {
     let mockDomainUserFactory;
 
     let mockUserRepository;
-
-    let connections;
-
-    beforeAll(async () => {
-        connections = await createConnections();
-    });
-
-    afterAll(async () => {
-        await connections.forEach(async connection => {
-            await connection.close();
-        });
-    });
 
     beforeEach(() => {
         ContainerHolder.clear();

@@ -2,24 +2,13 @@
 import "reflect-metadata";
 import ContainerHolder from "~/containers/ContainerHolder";
 import UserRepository from "~/repositories/db/UserRepository";
-import {createConnections, getConnection} from "typeorm";
+import {getConnection} from "typeorm";
 import DomainUser from "~/domains/users/DomainUser";
+import "./BaseDbRepositoryTestCase";
 
 describe('UserRepository Test', () => {
     let repository;
     let queryRunner;
-    let connections;
-
-    beforeAll(async () => {
-        ContainerHolder.bindDefault();
-        connections = await createConnections();
-    });
-
-    afterAll(async () => {
-        connections.forEach(async connection => {
-            await connection.close();
-        });
-    });
 
     beforeEach(async () => {
         queryRunner = getConnection().createQueryRunner();
