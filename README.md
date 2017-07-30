@@ -49,6 +49,7 @@ $ npm run setup
 1. Flow check: `$ npm run flow`
 1. Lint: `$ npm run lint`
 1. Test: `$ npm run test`
+   - test with outputing coverage: `$ npm run test:coverage`
    - watch: `$ npm run test:watch`
 
 ## The application architecture
