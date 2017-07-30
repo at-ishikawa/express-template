@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/express_template
     docker:
-      - image: circleci/node:7.10
+      - image: "circleci/node:7.10"
     steps:
       - checkout
       - run:
@@ -20,12 +20,12 @@ jobs:
           - node_modules
   test:
     docker:
-      - image: circleci/node:7.10
+      - image: "circleci/node:7.10"
     steps:
       - checkout
       - run:
         name: test
-        command: npm run test:coverage
+        command: "npm run test:coverage"
       - store_artifacts:
         path: coverage
         prefix: coverage
