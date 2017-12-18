@@ -1,40 +1,85 @@
 version: 2
+
+anchors:
+  default_job: &default_job
+    working_directory: ~/repo
+    docker:
+      - image: "circleci/node:9.3.0"
+      - image: "mysql:8.0"
+        ports:
+          - "3306:3306"
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: test
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+
+  restore_node_cache: &restore_node_cache
+    restore_cache:
+      key: dependency-cache-{{ checksum "package.json" }}
+  setup_node: &setup_node
+    run:
+      name: setup
+      command: npm run setup
+  save_node_cache: &save_node_cache
+    save_cache:
+      key: dependency-cache-{{ checksum "package.json" }}
+      paths:
+        - node_modules
+
 jobs:
   build:
-    working_directory: "~/express_template"
-    docker:
-      - image: "circleci/node:7.10"
+    <<: *default_job
     steps:
       - checkout
-      - run:
-        name: update-npm
-        command: "sudo npm install -g npm@latest"
-      - restore_cache:
-        key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-        name: install-npm-packages
-        command: npm install
-      - save_cache:
-        key: dependency-cache-{{ checksum "package.json" }}
-        paths:
-          - node_modules
-  test:
-    docker:
-      - image: "circleci/node:7.10"
+      - *restore_node_cache
+      - *setup_node
+      - *save_node_cache
+  lint:
+    <<: *default_job
     steps:
       - checkout
+      - *restore_node_cache
+      - *setup_node
+      - *save_node_cache
       - run:
-        name: test
-        command: "npm run test:coverage"
+          name: lint
+          command: "npm run lint -- --format junit --output-file ~/reports/eslint.xml"
+      - run:
+          name: flow
+          command: "npm run flow"
+      - store_test_results:
+          path: ~/reports
       - store_artifacts:
-        path: coverage
-        prefix: coverage
+          path: ~/reports
+  test:
+    <<: *default_job
+    steps:
+      - checkout
+      - *restore_node_cache
+      - *setup_node
+      - *save_node_cache
+      - run:
+          name: Wait for db
+          command: dockerize -wait tcp://$HOST:$PORT -timeout 1m
+          environment:
+            HOST: localhost
+            PORT: 3306
+      - run:
+          name: test
+          command: "npm run test:coverage"
+      - store_artifacts:
+          path: coverage
+          prefix: coverage
 
 workflows:
   version: 2
   test:
     jobs:
       - build
+      - lint:
+          requires:
+            - build
       - test:
-        requires:
-          - build
+          requires:
+            - build

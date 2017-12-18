@@ -7,7 +7,7 @@ import DomainUserFactory from "~/domains/users/DomainUserFactory";
 import UserRepository from "~/repositories/db/UserRepository";
 import ResponsePayload from "~/responders/ResponsePayload";
 import CreateResponder from "~/responders/users/CreateResponder";
-import "@/unit/actions/BaseActionTestCase";
+import "@/integration/actions/BaseActionTestCase";
 
 describe('CreateAction test example', () => {
     let sut;
