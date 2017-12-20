@@ -2,5 +2,8 @@
   "*.js": [
     "eslint --fix",
     "jest -c jest.json"
+  ],
+  ".circleci/config.yml": [
+    "circleci config validate -c "
   ]
 }
