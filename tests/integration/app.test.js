@@ -8,6 +8,7 @@ describe("Routing tests", () => {
 
     const routes = [
         "/",
+        "/users/1"
     ];
 
     let connections;

@@ -35,4 +35,18 @@ describe('UserRepository Test', () => {
         expect(actual.password).toBe(domain.password);
         expect(actual.id).toBeGreaterThan(0);
     });
+
+    test('findById', async () => {
+        const expected = {
+            id: 1,
+            email: 'test@example.com',
+            password: 'password'
+        };
+        await queryRunner.truncate('user');
+        await queryRunner.insert('user', expected);
+
+        const actual = await repository.findById(1);
+        expect(actual.email).toBe(expected.email);
+        expect(actual.password).toBe(expected.password);
+    });
 });

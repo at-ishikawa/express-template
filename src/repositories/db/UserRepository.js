@@ -21,4 +21,11 @@ export default class UserRepository extends BaseRepository
         return this.container.get(DomainUserFactory)
             .create(entity);
     }
+
+    async findById(id: int): Promise<DomainUser>
+    {
+        const entity = await this.entityRepository.findOneById(id)
+        return this.container.get(DomainUserFactory)
+            .create(entity);
+    }
 }

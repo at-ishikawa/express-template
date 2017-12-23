@@ -2,6 +2,7 @@
 import express from "express";
 import type BaseAction from "~/actions/BaseAction";
 import ContainerHolder from "~/containers/ContainerHolder";
+import type {express$Middleware} from "../../flow-typed/npm/express_v4.x.x";
 
 export default class Router
 {
@@ -25,6 +26,11 @@ export default class Router
     post(url: string, action: Class<$Subtype<BaseAction>>)
     {
         this.expressRouter.post(url, this.getAction(action));
+    }
+
+    use(middleware: express$Middleware)
+    {
+        this.expressRouter.use(middleware);
     }
 
     getAction(actionClass: Class<$Subtype<BaseAction>>): Function
