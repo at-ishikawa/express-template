@@ -6,7 +6,7 @@ import UserRepository from "~/repositories/db/UserRepository";
 import IndexResponder from "~/responders/users/IndexResponder";
 import {inject} from "inversify";
 
-export default class CreateAction extends BaseAction
+export default class IndexAction extends BaseAction
 {
     @inject(IndexResponder)
     responder: IndexResponder = new IndexResponder();
@@ -14,9 +14,9 @@ export default class CreateAction extends BaseAction
     @inject(UserRepository)
     userRepository: UserRepository = new UserRepository();
 
-    async onDispatch(request : express$Request)
+    onDispatch(request : express$Request)
     {
-        const user = await this.userRepository.findById(request.params.id);
+        const user = this.userRepository.findById(request.params.id);
         return new ResponsePayload(user);
     }
 }

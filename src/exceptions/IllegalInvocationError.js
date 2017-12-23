@@ -1,4 +1,6 @@
 // @flow
-export default class IllegalInvocationError extends Error
+import ExtendedError from "./ExtendedError";
+
+export default class IllegalInvocationError extends ExtendedError
 {
 }
